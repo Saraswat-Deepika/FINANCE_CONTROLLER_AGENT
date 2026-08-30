@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+pandas
+rapidfuzz
+google-generativeai
+python-dotenv

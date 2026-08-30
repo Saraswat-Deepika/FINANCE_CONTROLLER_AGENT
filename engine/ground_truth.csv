@@ -1,0 +1,61 @@
+group_id,true_category,expected_reason,fate
+grp_001,Fully Matched,Perfect match across all sources,clean_match
+grp_002,Fully Matched,Perfect match across all sources,clean_match
+grp_003,Fully Matched,Perfect match across all sources,clean_match
+grp_004,Fully Matched,Perfect match across all sources,clean_match
+grp_005,Fully Matched,Perfect match across all sources,clean_match
+grp_006,Fully Matched,Perfect match across all sources,clean_match
+grp_007,Fully Matched,Perfect match across all sources,clean_match
+grp_008,Fully Matched,Perfect match across all sources,clean_match
+grp_009,Fully Matched,Perfect match across all sources,clean_match
+grp_010,Fully Matched,Perfect match across all sources,clean_match
+grp_011,Fully Matched,Perfect match across all sources,clean_match
+grp_012,Fully Matched,Perfect match across all sources,clean_match
+grp_013,Fully Matched,Perfect match across all sources,clean_match
+grp_014,Fully Matched,Perfect match across all sources,clean_match
+grp_015,Fully Matched,Perfect match across all sources,clean_match
+grp_016,Fully Matched,Perfect match across all sources,clean_match
+grp_017,Fully Matched,Perfect match across all sources,clean_match
+grp_018,Fully Matched,Perfect match across all sources,clean_match
+grp_019,Fully Matched,Perfect match across all sources,clean_match
+grp_020,Fully Matched,Perfect match across all sources,clean_match
+grp_021,Fully Matched,Perfect match across all sources,clean_match
+grp_022,Fully Matched,Perfect match across all sources,clean_match
+grp_023,Fully Matched,Perfect match across all sources,clean_match
+grp_024,Fully Matched,Perfect match across all sources,clean_match
+grp_025,Fully Matched,Perfect match across all sources,clean_match
+grp_026,Fully Matched,Perfect match across all sources,clean_match
+grp_027,Fully Matched,Perfect match across all sources,clean_match
+grp_028,Fully Matched,Perfect match across all sources,clean_match
+grp_029,Fully Matched,Perfect match across all sources,clean_match
+grp_030,Fully Matched,Perfect match across all sources,clean_match
+grp_031,Fully Matched,Perfect match across all sources,clean_match
+grp_032,Fully Matched,Perfect match across all sources,clean_match
+grp_033,Fully Matched,Perfect match across all sources,clean_match
+grp_034,Fuzzy Matched,Settlement delayed by 1-3 days,date_shift
+grp_035,Fuzzy Matched,Settlement delayed by 1-3 days,date_shift
+grp_036,Fuzzy Matched,Settlement delayed by 1-3 days,date_shift
+grp_037,Fuzzy Matched,Settlement delayed by 1-3 days,date_shift
+grp_038,Fuzzy Matched,Settlement delayed by 1-3 days,date_shift
+grp_039,Fuzzy Matched,Settlement delayed by 1-3 days,date_shift
+grp_040,Fuzzy Matched,Settlement delayed by 1-3 days,date_shift
+grp_041,Fuzzy Matched,Settlement delayed by 1-3 days,date_shift
+grp_042,Fuzzy Matched,Settlement delayed by 1-3 days,date_shift
+grp_043,Fuzzy Matched,Gateway fee deducted,amount_mismatch
+grp_044,Fuzzy Matched,Gateway fee deducted,amount_mismatch
+grp_045,Fuzzy Matched,Gateway fee deducted,amount_mismatch
+grp_046,Fuzzy Matched,Gateway fee deducted,amount_mismatch
+grp_047,Fuzzy Matched,Gateway fee deducted,amount_mismatch
+grp_048,Fuzzy Matched,Gateway fee deducted,amount_mismatch
+grp_049,Unmatched,Missing in Bank Statement,missing_in_bank
+grp_050,Unmatched,Missing in Bank Statement,missing_in_bank
+grp_051,Unmatched,Missing in Bank Statement,missing_in_bank
+grp_052,Unmatched,Missing in Bank Statement,missing_in_bank
+grp_053,Unmatched,Missing in Bank Statement,missing_in_bank
+grp_054,Unmatched,Missing in Internal Ledger,missing_in_ledger
+grp_055,Unmatched,Missing in Internal Ledger,missing_in_ledger
+grp_056,Unmatched,Missing in Internal Ledger,missing_in_ledger
+grp_057,Unmatched,Missing in Internal Ledger,missing_in_ledger
+grp_058,Unmatched,Missing in Settlement,missing_in_settlement
+grp_059,Unmatched,Missing in Settlement,missing_in_settlement
+grp_060,Unmatched,Missing in Settlement,missing_in_settlement

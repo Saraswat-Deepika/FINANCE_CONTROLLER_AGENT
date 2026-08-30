@@ -1,0 +1,14 @@
+# Dependency directories
+node_modules/
+venv/
+__pycache__/
+
+# Environment variables (Inhe kabhi push nahi karna chahiye security ke liye)
+.env
+
+# MacOS folder attributes
+.DS_Store
+
+# Build outputs
+dist/
+build/
