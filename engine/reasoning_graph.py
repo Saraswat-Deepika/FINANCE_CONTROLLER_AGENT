@@ -4,9 +4,9 @@ from pydantic import BaseModel, ValidationError
 from langgraph.graph import StateGraph, END
 
 try:
-    from gemini_client import call_gemini
+    from gemini_client import call_gemini, GeminiPermanentError
 except ImportError:
-    from engine.gemini_client import call_gemini
+    from engine.gemini_client import call_gemini, GeminiPermanentError
 
 # 1. Pydantic Schemas
 class ReasoningItem(BaseModel):
@@ -56,7 +56,16 @@ def gemini_reasoning_node(state: ReconciliationState):
         
         prompt = f"""
         Neeche {len(batch)} financial reconciliation records hain (JSON array).
-        Har record ke liye ek short reason (max 15 words) do ki wo exception me kyun hai.
+        Har record mein 'evidence' aur 'status' diya gaya hai.
+        Tumhara kaam hai is evidence ke base par ek short, concise, aur specific human-readable explanation (max 15 words) generate karna ki ye status kyun assign hua hai.
+        
+        Strict Rules:
+        - Sirf diye gaye evidence data ko use karo.
+        - Koi bhi factual value (amounts, dates, transaction IDs, fee amounts, missing sources) invent/hallucinate mat karo. Agar evidence missing hai to bolo: "Insufficient evidence for an automated conclusion."
+        - Agar Unmatched hai, to strictly bolo ki kya missing hai based on 'missing_sources'.
+        - Agar fee difference hai to gateway fee difference ka reason do.
+        - Agar date difference hai to settlement delay explain karo.
+        
         Response strictly in this JSON format:
         {{
             "items": [
@@ -64,7 +73,7 @@ def gemini_reasoning_node(state: ReconciliationState):
             ]
         }}
         
-        Input:
+        Input Data (with evidence):
         {json.dumps(batch, default=str)}
         """
         

@@ -1,0 +1,4 @@
+ledger_id,transaction_date,amount,utr,invoice_id,customer,account,description
+LED-001,2023-10-30,4986.72,UTR18826235,INV-42810,Tech Corp,Software,Annual subscription
+LED-002,2023-10-30,1500.00,UTR99384722,INV-42811,Store Front,Services,Consulting
+LED-003,2023-10-31,250.50,UTR11223344,INV-42812,Coffee Shop,Goods,Coffee supplies

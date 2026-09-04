@@ -1,0 +1,827 @@
+[
+  {
+    "group_id": "grp_001",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "462779b1-f6c4-453f-a38d-63800e5c89b3",
+      "settlement": "8ae6dc80-601b-42b1-8eca-a54c34888c67",
+      "ledger": "82919e68-be05-4adc-ba47-18a114e3d280"
+    }
+  },
+  {
+    "group_id": "grp_002",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "a308118e-5945-4330-86da-545086ab1313",
+      "settlement": "4d11b0d3-60f3-4a4d-a7a6-a8d5598350c7",
+      "ledger": "d174b8fd-79dc-4d28-8898-a826743ea50a"
+    }
+  },
+  {
+    "group_id": "grp_003",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "d3c90e43-8b73-4e1b-b6f6-c793868e5658",
+      "settlement": "9417491c-6fef-4332-b914-eb47d9a2d738",
+      "ledger": "d943ba14-b214-4fb1-a7c4-23a6c14be625"
+    }
+  },
+  {
+    "group_id": "grp_004",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "24b3a0e9-d1ef-4dfd-b919-8d0784875977",
+      "settlement": "5b588888-ca3c-4e96-8cd5-2b06bb655060",
+      "ledger": "7af6d204-e94e-4ec5-a47e-41924ae203cc"
+    }
+  },
+  {
+    "group_id": "grp_005",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "01252b3d-39df-4e8e-9694-9baa0f5556ce",
+      "settlement": "b85cfe0b-2bb3-4700-96c0-8c46951d77f8",
+      "ledger": "462c6fb1-2e38-45b3-bf7e-76dbf7f01be0"
+    }
+  },
+  {
+    "group_id": "grp_006",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "bec22437-d089-4fd0-ab1f-f0cad3bea552",
+      "settlement": "d4c92190-ad0e-4fa1-a375-7beed403cb16",
+      "ledger": "68e0ad9e-8185-47f4-9565-d154fa1028d2"
+    }
+  },
+  {
+    "group_id": "grp_007",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "86fbc765-b32f-4791-bd3e-879a38b30fc0",
+      "settlement": "8d58a6ce-cc5e-4223-8c98-bfc30bed22f6",
+      "ledger": "4b84934b-0436-48d6-8f77-86daeeb2446c"
+    }
+  },
+  {
+    "group_id": "grp_008",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "0ffaba98-c8da-4439-8e32-58f77c53f7ae",
+      "settlement": "2923ac1a-6c34-4205-8a07-14d012a56f34",
+      "ledger": "4b90df65-20d5-4568-9acb-db1dda0175b0"
+    }
+  },
+  {
+    "group_id": "grp_009",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "8907b924-5184-4d3f-85fd-17bd827d2d4b",
+      "settlement": "8d2f2c94-7337-48e9-9a5c-654845aeef55",
+      "ledger": "c4e5e2ef-f49b-43d5-8c48-cc7a4e383b6f"
+    }
+  },
+  {
+    "group_id": "grp_010",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "366474e3-51a5-41ef-b4da-760561316463",
+      "settlement": "8a144089-a09b-41a4-a8a0-35804ff8d970",
+      "ledger": "7b1ee66a-71e8-4f1f-aa6b-ce33d1098daf"
+    }
+  },
+  {
+    "group_id": "grp_011",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "cef875c2-dfa5-44f7-943c-c8b9d293448f",
+      "settlement": "6f65e9c9-4508-47f2-b39b-ef2d22a67e25",
+      "ledger": "af1cd8af-a51e-4d28-9fe9-42f2feb0a346"
+    }
+  },
+  {
+    "group_id": "grp_012",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "c86148ad-c281-4fbb-bbe6-9d9094bb02a0",
+      "settlement": "71492ae5-beb3-40af-80d2-eddeb63bf665",
+      "ledger": "7a89b25f-2bce-4c85-a9d2-f10fe15dfb7f"
+    }
+  },
+  {
+    "group_id": "grp_013",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "0ec2ac88-52ee-4f7e-b5d0-e1da565776df",
+      "settlement": "7b0fd7ab-8024-40df-8290-309a0affb223",
+      "ledger": "fcc01a1d-5e81-4ee4-a6dd-27292eb81cec"
+    }
+  },
+  {
+    "group_id": "grp_014",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "32af2625-8a46-4243-a29d-8243e4801b9c",
+      "settlement": "08896535-1bc1-426e-9ebb-3a30da9cbd3c",
+      "ledger": "e163d587-a60a-44de-be4a-63d00d5673e2"
+    }
+  },
+  {
+    "group_id": "grp_015",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "40efeb76-3139-42df-8886-39bfbf16f266",
+      "settlement": "0b66f55d-9d25-4e33-88e6-7d0ada17e81b",
+      "ledger": "29ed631c-304e-4fa7-8948-505773b275ef"
+    }
+  },
+  {
+    "group_id": "grp_016",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "80c94608-e194-452f-92b4-c97bd5772254",
+      "settlement": "0cbace81-394e-4908-ad69-ff7a5c226c4a",
+      "ledger": "0f5ca612-965b-4b8a-ab35-f2dddfeb7713"
+    }
+  },
+  {
+    "group_id": "grp_017",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "326e4bae-2ec6-4732-b2d4-959d0fbb483d",
+      "settlement": "4fa469c4-3d0c-4319-b3a2-3dd3004f9427",
+      "ledger": "bc0c35f3-ef9c-41e0-b4af-602ea1b70caa"
+    }
+  },
+  {
+    "group_id": "grp_018",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "87942903-8486-4c42-b2c3-576913f85d68",
+      "settlement": "3fdafebd-cece-415a-ae7b-72725d14e9dd",
+      "ledger": "f85f40c2-8802-4a09-b72c-246a3d12e7f7"
+    }
+  },
+  {
+    "group_id": "grp_019",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "e72d8623-c255-4866-a183-3a859993e84c",
+      "settlement": "c920829c-33e5-4ca5-b2b2-00565dd865d9",
+      "ledger": "d0162caa-922f-440e-a960-8fe8ef407980"
+    }
+  },
+  {
+    "group_id": "grp_020",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "8b57432f-7d69-4036-bdf7-cd2a7bbdd95c",
+      "settlement": "670768b8-d704-495f-89dc-3d381b2b1f9c",
+      "ledger": "4de557ba-84f4-4c9c-a30d-0673a21e1239"
+    }
+  },
+  {
+    "group_id": "grp_021",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "f17f0090-136c-478e-94e7-30c285587629",
+      "settlement": "8d171181-44bc-4a1f-a757-66609e558d82",
+      "ledger": "794f7bfa-2160-43e1-8286-4186c89dfc81"
+    }
+  },
+  {
+    "group_id": "grp_022",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "14603c78-2028-45ce-b88e-1203289b3267",
+      "settlement": "4c1fd76d-2b31-4c20-b050-db6db7bb5191",
+      "ledger": "81b57067-ffa4-4923-a886-b435ec83e02d"
+    }
+  },
+  {
+    "group_id": "grp_023",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "955cd5a8-a69e-41e5-ac72-1e0a87ea2c32",
+      "settlement": "c7b8f06a-1eef-4233-9572-8d9556e9b836",
+      "ledger": "92b6707d-e9da-4b61-9bd0-1b3572934c54"
+    }
+  },
+  {
+    "group_id": "grp_024",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "4f839c7e-4526-40fb-a0d3-d7a397eadd60",
+      "settlement": "e5ebc0a3-13ed-47de-89d9-e2073e6db1f7",
+      "ledger": "d722a012-c80d-4c5a-8f5d-fe03186146e3"
+    }
+  },
+  {
+    "group_id": "grp_025",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "e2dd3957-0b21-4ce4-86f7-ae5039116ff4",
+      "settlement": "1b51dd34-3bce-4d82-8e79-b2fbf5dbc7c7",
+      "ledger": "9aa773a2-5b3a-42bb-9f97-cdc00fce83b9"
+    }
+  },
+  {
+    "group_id": "grp_026",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "bd4d8d00-01e6-44b2-b779-9f3485279717",
+      "settlement": "182b8eb1-dcd2-4df8-aae4-0a255993e269",
+      "ledger": "07cafccc-531c-48fc-83fc-114ed4588a88"
+    }
+  },
+  {
+    "group_id": "grp_027",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "8a3e3c68-cc75-46bd-ab9d-a94096c7320a",
+      "settlement": "176db630-13ec-4f14-aa5f-c9c789679594",
+      "ledger": "03ed50df-b37e-4648-bc1e-6852f10f7e7a"
+    }
+  },
+  {
+    "group_id": "grp_028",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "83d9e8ca-4b8d-4a01-a868-fd703a7655ad",
+      "settlement": "1573730b-2f20-4fa2-8dff-487c286cfe1e",
+      "ledger": "7a85edf4-763d-467a-9b17-13d056830723"
+    }
+  },
+  {
+    "group_id": "grp_029",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "72b4bef5-1834-46ee-b81b-f4318badfd9d",
+      "settlement": "fa123bff-4b61-4db8-ba0e-1e359bc05b36",
+      "ledger": "d97f0a53-7a89-4393-9d45-7eefc8b88ba1"
+    }
+  },
+  {
+    "group_id": "grp_030",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "2169fa06-047e-4ce2-82ac-ea63e475ebd4",
+      "settlement": "59648ae7-ed88-40c9-80d9-dab27312696a",
+      "ledger": "a35f2125-4b01-4d2c-9e5e-87bdcfe569ef"
+    }
+  },
+  {
+    "group_id": "grp_031",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "e76d9dfc-3ce5-422a-b606-e6fa45f86cd1",
+      "settlement": "21241ef2-33ef-455b-8ab4-387ce1ad2f7b",
+      "ledger": "13d5e80a-5fdd-439e-84ee-a30df7bf9ef9"
+    }
+  },
+  {
+    "group_id": "grp_032",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "2ef1c4bb-65d0-41c9-a857-a8f363c40491",
+      "settlement": "13372bad-03bc-458b-8720-93754a984820",
+      "ledger": "3d14a88e-a9f4-4f7e-97b9-da84291af402"
+    }
+  },
+  {
+    "group_id": "grp_033",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "c1866c55-0790-4808-8bed-cce8a79c84bf",
+      "settlement": "6f8ca987-d2fd-4f0f-a948-4715ea2b75a1",
+      "ledger": "40265597-18cf-4bfe-9cb1-a4f2280ef45a"
+    }
+  },
+  {
+    "group_id": "grp_034",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "b1a1e9b5-29ce-460f-978c-0f6ea2392a7a",
+      "settlement": "57533944-5bc3-421c-a0a2-b7d50f8d926b",
+      "ledger": "1d19c6e3-b577-4d1d-bded-e214181c9a51"
+    }
+  },
+  {
+    "group_id": "grp_035",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "8ecfe236-71da-4f55-a3a3-13c20c5679f5",
+      "settlement": "0f3c5a31-2975-4761-955f-fb819a8bcbd4",
+      "ledger": "5af3a428-70ac-46e7-b13c-0129b6dd796e"
+    }
+  },
+  {
+    "group_id": "grp_036",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "9aefd724-82dc-4f14-9515-184ce3b5eaa6",
+      "settlement": "14b971f9-a587-4a75-8f49-167a830ffdcc",
+      "ledger": "4a9d2715-6cdd-4330-9af2-94a811d65840"
+    }
+  },
+  {
+    "group_id": "grp_037",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "840316bf-c96f-47d9-890c-1b6d9e742404",
+      "settlement": "c570eac1-a05f-4536-b8f8-4e0403a68f68",
+      "ledger": "701ad20d-b0e0-4627-8e0d-acc844331eaf"
+    }
+  },
+  {
+    "group_id": "grp_038",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "9b5ee31b-8fe0-4138-afd3-514395d22a65",
+      "settlement": "e3017d33-8eed-4be8-a8fb-a82677dea8fd",
+      "ledger": "84c2cedf-5742-46be-8ccd-2e81924a39e8"
+    }
+  },
+  {
+    "group_id": "grp_039",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "e5d4811c-b04c-4f25-876d-d8bc335a3c99",
+      "settlement": "0e5f4f00-3e94-4b86-af97-b46f24614a6a",
+      "ledger": "293306a3-2b7e-4bb2-924e-87066129b716"
+    }
+  },
+  {
+    "group_id": "grp_040",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "a6f94831-2e3f-4a6f-951a-a9a2bd8f3d73",
+      "settlement": "76b32182-dff4-44ab-89a1-44033f65058a",
+      "ledger": "373d3887-5906-4d18-8388-98f1c5fe9564"
+    }
+  },
+  {
+    "group_id": "grp_041",
+    "expected_status": "FUZZY_MATCHED",
+    "expected_method": "DATE_TOLERANCE",
+    "expected_exception_type": "DATE_MISMATCH",
+    "record_ids": {
+      "bank": "2994b935-3f75-44f0-aea8-9b16253aecf9",
+      "settlement": "5027240b-387b-49b8-abd2-8f2ed091b10a",
+      "ledger": "1a7a32bb-2aff-4027-bd6e-cbfc11e2f2ae"
+    }
+  },
+  {
+    "group_id": "grp_042",
+    "expected_status": "FUZZY_MATCHED",
+    "expected_method": "DATE_TOLERANCE",
+    "expected_exception_type": "DATE_MISMATCH",
+    "record_ids": {
+      "bank": "4599bad0-d60b-41a9-a5cd-b8417c9ad542",
+      "settlement": "226be702-2618-413f-93b1-296544d734aa",
+      "ledger": "ccd1c011-b199-4366-b7f9-f497933ca342"
+    }
+  },
+  {
+    "group_id": "grp_043",
+    "expected_status": "FUZZY_MATCHED",
+    "expected_method": "DATE_TOLERANCE",
+    "expected_exception_type": "DATE_MISMATCH",
+    "record_ids": {
+      "bank": "a1c1bef3-0c18-45c8-ba0b-064834a7d37a",
+      "settlement": "0d45ed45-3702-436d-9e59-2684947f6a79",
+      "ledger": "ba2f1114-29a3-4a6d-ac65-437a1beec577"
+    }
+  },
+  {
+    "group_id": "grp_044",
+    "expected_status": "FUZZY_MATCHED",
+    "expected_method": "DATE_TOLERANCE",
+    "expected_exception_type": "DATE_MISMATCH",
+    "record_ids": {
+      "bank": "fe5b2566-3e54-4c6d-bb33-e4d92d19d785",
+      "settlement": "c6b70ae6-0f4c-4a5a-9d4a-4169df2ed260",
+      "ledger": "442bb29e-8104-44a5-be43-5e4e3cd6a61d"
+    }
+  },
+  {
+    "group_id": "grp_045",
+    "expected_status": "FUZZY_MATCHED",
+    "expected_method": "DATE_TOLERANCE",
+    "expected_exception_type": "DATE_MISMATCH",
+    "record_ids": {
+      "bank": "0cea387e-0462-4138-93fc-a1ca1b4c8420",
+      "settlement": "0792bf08-2597-481a-b36b-fd4b23c37d85",
+      "ledger": "0ddcc100-44fc-4e91-92bd-e9f9b6cbb2b9"
+    }
+  },
+  {
+    "group_id": "grp_046",
+    "expected_status": "FUZZY_MATCHED",
+    "expected_method": "AMOUNT_TOLERANCE",
+    "expected_exception_type": "GATEWAY_FEE",
+    "record_ids": {
+      "bank": "3f2f5b52-e976-4dc4-882d-26d48c117e3f",
+      "settlement": "bc53513f-6910-48be-ab3a-a81dd7836c81",
+      "ledger": "224c54ec-5446-43a3-bea2-b352263b994b"
+    }
+  },
+  {
+    "group_id": "grp_047",
+    "expected_status": "FUZZY_MATCHED",
+    "expected_method": "AMOUNT_TOLERANCE",
+    "expected_exception_type": "GATEWAY_FEE",
+    "record_ids": {
+      "bank": "2946ae59-8ddc-4a24-a6bc-8b9e055242d9",
+      "settlement": "9de4dbb6-aa10-46b3-931a-141864394163",
+      "ledger": "7adcabb2-17d4-4285-afa8-a8b553965ff0"
+    }
+  },
+  {
+    "group_id": "grp_048",
+    "expected_status": "FUZZY_MATCHED",
+    "expected_method": "AMOUNT_TOLERANCE",
+    "expected_exception_type": "GATEWAY_FEE",
+    "record_ids": {
+      "bank": "e4268a9f-7f13-4aae-8563-f000879f4009",
+      "settlement": "05eed1ca-d0f9-4d09-9e3f-dc81d51fa14f",
+      "ledger": "44783ec6-c00c-40ea-a8be-dd8a984894e0"
+    }
+  },
+  {
+    "group_id": "grp_049",
+    "expected_status": "FUZZY_MATCHED",
+    "expected_method": "AMOUNT_TOLERANCE",
+    "expected_exception_type": "GATEWAY_FEE",
+    "record_ids": {
+      "bank": "3a811f73-cc45-4f64-8e59-0d6a0396c9c4",
+      "settlement": "05086d8a-56d2-4fd6-977d-e2d32e8ba35f",
+      "ledger": "f423e3dd-3eae-483a-9467-2d688cfd7c5e"
+    }
+  },
+  {
+    "group_id": "grp_050",
+    "expected_status": "FUZZY_MATCHED",
+    "expected_method": "AMOUNT_TOLERANCE",
+    "expected_exception_type": "GATEWAY_FEE",
+    "record_ids": {
+      "bank": "86f3452e-f005-4572-b35e-94bf467c1659",
+      "settlement": "9c51e1f0-df4c-42cc-a9d0-6c8c037acede",
+      "ledger": "cbaf45cc-b2fa-45e1-b337-be23243f077a"
+    }
+  },
+  {
+    "group_id": "grp_051",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_AMOUNT_DATE",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "fb38f5a9-1a26-4b56-ace5-16710f359412",
+      "settlement": "6c2a2bfd-bb99-4bb8-932b-3bd15a973d8a",
+      "ledger": "546aa7bf-c19b-4753-8165-00e5c9334eeb"
+    }
+  },
+  {
+    "group_id": "grp_052",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_AMOUNT_DATE",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "1c595047-0986-40bc-af68-a3290d87c33d",
+      "settlement": "62bfdd9c-0a9f-4521-ad81-16659fea60b5",
+      "ledger": "1e53a90e-2b25-48f6-8e5d-7747f9eaa4c5"
+    }
+  },
+  {
+    "group_id": "grp_053",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_AMOUNT_DATE",
+    "expected_exception_type": "NONE",
+    "record_ids": {
+      "bank": "52e4ed7e-16c8-499d-92a4-dcd4cbcfed78",
+      "settlement": "d9a8e80a-ae05-4dc5-aaec-3a7d6e3a3cb9",
+      "ledger": "3ade52ba-55c0-466d-b917-4784c9b008bd"
+    }
+  },
+  {
+    "group_id": "grp_054",
+    "expected_status": "PARTIAL_MATCH",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "MISSING_LEDGER",
+    "record_ids": {
+      "bank": "c8fdec99-5bf7-4fad-9595-aa55b93edb51",
+      "settlement": "95ba81fd-36c5-48df-a38c-b25adfb909af",
+      "ledger": null
+    }
+  },
+  {
+    "group_id": "grp_055",
+    "expected_status": "PARTIAL_MATCH",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "MISSING_LEDGER",
+    "record_ids": {
+      "bank": "8f554542-4a50-4f07-992f-623858db3510",
+      "settlement": "4263319d-b4b9-4a6a-a32e-d4861824e1f6",
+      "ledger": null
+    }
+  },
+  {
+    "group_id": "grp_056",
+    "expected_status": "PARTIAL_MATCH",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "MISSING_LEDGER",
+    "record_ids": {
+      "bank": "fbb1c5b3-4d61-4e57-b401-1e6eeb2bc60a",
+      "settlement": "b4c188eb-56f3-469b-bb94-77f3e3ebb257",
+      "ledger": null
+    }
+  },
+  {
+    "group_id": "grp_057",
+    "expected_status": "UNMATCHED",
+    "expected_method": "NONE",
+    "expected_exception_type": "MISSING_SOURCE",
+    "record_ids": {
+      "bank": "17942d95-7248-47de-84d0-5b652e011cda",
+      "settlement": null,
+      "ledger": null
+    }
+  },
+  {
+    "group_id": "grp_058",
+    "expected_status": "UNMATCHED",
+    "expected_method": "NONE",
+    "expected_exception_type": "MISSING_SOURCE",
+    "record_ids": {
+      "bank": "92318a56-ee6e-4aa5-a26e-5bf8e71f3706",
+      "settlement": null,
+      "ledger": null
+    }
+  },
+  {
+    "group_id": "grp_059",
+    "expected_status": "UNMATCHED",
+    "expected_method": "NONE",
+    "expected_exception_type": "MISSING_SOURCE",
+    "record_ids": {
+      "bank": "bdd58e6f-bf99-4466-8f23-fd637a0ea2d5",
+      "settlement": null,
+      "ledger": null
+    }
+  },
+  {
+    "group_id": "grp_060",
+    "expected_status": "DUPLICATE_SUSPECTED",
+    "expected_method": "DUPLICATE_DETECTED",
+    "expected_exception_type": "DUPLICATE",
+    "record_ids": {
+      "bank": "996c7993-2bfa-429d-b1be-8543803793c2",
+      "settlement": "81c15ef2-b3e6-4a90-835c-34da051b1f62",
+      "ledger": "38175637-1927-46d4-b7d0-871b2c13bea8"
+    }
+  },
+  {
+    "group_id": "grp_061",
+    "expected_status": "DUPLICATE_SUSPECTED",
+    "expected_method": "DUPLICATE_DETECTED",
+    "expected_exception_type": "DUPLICATE",
+    "record_ids": {
+      "bank": "0a35b3e2-f34d-499c-9130-0d359a1b79d4",
+      "settlement": "9a04c360-da3a-4e4c-a8a9-5fc06b93638e",
+      "ledger": "04990df6-eec4-47ec-8cf4-bc9124ed838c"
+    }
+  },
+  {
+    "group_id": "grp_062",
+    "expected_status": "DUPLICATE_SUSPECTED",
+    "expected_method": "DUPLICATE_DETECTED",
+    "expected_exception_type": "DUPLICATE",
+    "record_ids": {
+      "bank": "df2bf914-480c-4d3c-8e18-44ff302c098a",
+      "settlement": "229eeaa3-2c67-4304-82f6-36a5b89768dd",
+      "ledger": "d8082f1f-ca52-47c3-a5ab-684215bbbf53"
+    }
+  },
+  {
+    "group_id": "grp_063",
+    "expected_status": "NEEDS_REVIEW",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "AMOUNT_MISMATCH",
+    "record_ids": {
+      "bank": "f528938e-dc1e-46f3-8d5b-382e4ad952ed",
+      "settlement": "247c8960-0549-4aa3-8127-e9c1e2e0bbdb",
+      "ledger": "dbec2e40-c7b2-4bd3-ae8f-847eed00785e"
+    }
+  },
+  {
+    "group_id": "grp_064",
+    "expected_status": "NEEDS_REVIEW",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "AMOUNT_MISMATCH",
+    "record_ids": {
+      "bank": "20a5362a-30d0-41c4-afcc-4d1863073f5d",
+      "settlement": "afac2a69-3dbf-4a1c-bffb-6014652b42cd",
+      "ledger": "d650bfba-2fd5-4427-9e50-60938d087351"
+    }
+  },
+  {
+    "group_id": "grp_065",
+    "expected_status": "NEEDS_REVIEW",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "AMOUNT_MISMATCH",
+    "record_ids": {
+      "bank": "b1c9d94d-3e49-47d3-bfa5-477f35e37433",
+      "settlement": "2218eb4b-2f9e-480e-92e0-2e472cbaf182",
+      "ledger": "a4ee8a3d-0239-4578-ab47-1ad781445b99"
+    }
+  },
+  {
+    "group_id": "grp_066",
+    "expected_status": "FUZZY_MATCHED",
+    "expected_method": "FUZZY_MERCHANT",
+    "expected_exception_type": "NAME_MISMATCH",
+    "record_ids": {
+      "bank": "8c34d387-09c3-45a2-9113-4fc707025cb8",
+      "settlement": "6f1de51d-e532-474a-91a5-9366fcc812ea",
+      "ledger": "09ef2129-5d68-4bcd-9eae-ad875840b603"
+    }
+  },
+  {
+    "group_id": "grp_067",
+    "expected_status": "FUZZY_MATCHED",
+    "expected_method": "FUZZY_MERCHANT",
+    "expected_exception_type": "NAME_MISMATCH",
+    "record_ids": {
+      "bank": "09194fcf-15ef-4966-a535-445e89d7afb3",
+      "settlement": "f37a193b-fa45-48e1-96c6-0470d9693afc",
+      "ledger": "b14e2612-5417-43e1-a489-a662bcc77d7d"
+    }
+  },
+  {
+    "group_id": "grp_068",
+    "expected_status": "FUZZY_MATCHED",
+    "expected_method": "FUZZY_MERCHANT",
+    "expected_exception_type": "NAME_MISMATCH",
+    "record_ids": {
+      "bank": "89428857-796a-4dd1-8761-38dba6c13959",
+      "settlement": "67790fdb-b094-4f84-9acd-e04a49ee44c9",
+      "ledger": "15738867-6f12-4c27-b1d8-344276a39bee"
+    }
+  },
+  {
+    "group_id": "grp_069",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "REFUND",
+    "record_ids": {
+      "bank": "665a8a77-9b7e-4ebb-9ad8-c08cfb0aa8e9",
+      "settlement": "f015118f-f845-4dae-bd35-2fd6fa36eeff",
+      "ledger": "99697ec9-31db-4ed7-9319-77a8c43b21ac"
+    }
+  },
+  {
+    "group_id": "grp_070",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "REFUND",
+    "record_ids": {
+      "bank": "2a461400-f174-4a2a-b65a-c87aed7ad65a",
+      "settlement": "2026323f-3d61-47d4-b0a5-1d335dee5a9d",
+      "ledger": "f6ca2c5d-0f89-480e-adf3-570bc9c89437"
+    }
+  },
+  {
+    "group_id": "grp_071",
+    "expected_status": "FULLY_MATCHED",
+    "expected_method": "EXACT_UTR",
+    "expected_exception_type": "REFUND",
+    "record_ids": {
+      "bank": "6ca1a578-6e0f-455c-9bcc-421004c86fac",
+      "settlement": "12ac5510-df35-4c45-9c5e-fcce3dc7906b",
+      "ledger": "35f370a2-60ea-46a9-8dc9-57329ebe5d5e"
+    }
+  },
+  {
+    "group_id": "grp_072",
+    "expected_status": "NEEDS_REVIEW",
+    "expected_method": "AMBIGUOUS",
+    "expected_exception_type": "AMBIGUOUS_CANDIDATE",
+    "record_ids": {
+      "bank": "11104837-dfad-46a5-aac4-3f19ddfbe773",
+      "settlement": "4507298c-32f7-4ccb-9cb9-a9f3a899d29d",
+      "ledger": "05cf4ee4-3169-4849-9079-bdde3d9e03a3"
+    }
+  },
+  {
+    "group_id": "grp_073",
+    "expected_status": "NEEDS_REVIEW",
+    "expected_method": "AMBIGUOUS",
+    "expected_exception_type": "AMBIGUOUS_CANDIDATE",
+    "record_ids": {
+      "bank": "b88ccccf-26bd-4344-993f-bac002041569",
+      "settlement": "5f6a3f3a-3534-4ada-95f6-e4af1dcfc98d",
+      "ledger": "654819c3-d6bc-44aa-a0b3-3241496167b2"
+    }
+  },
+  {
+    "group_id": "grp_074",
+    "expected_status": "NEEDS_REVIEW",
+    "expected_method": "AMBIGUOUS",
+    "expected_exception_type": "AMBIGUOUS_CANDIDATE",
+    "record_ids": {
+      "bank": "05ca4418-9da0-4863-91c0-1988cf55fc71",
+      "settlement": "e12e075c-2aee-45c5-ace6-32f3da809bfe",
+      "ledger": "1a549935-f586-4562-a5b1-9d7de039d723"
+    }
+  },
+  {
+    "group_id": "grp_075",
+    "expected_status": "NEEDS_REVIEW",
+    "expected_method": "AMBIGUOUS",
+    "expected_exception_type": "AMBIGUOUS_CANDIDATE",
+    "record_ids": {
+      "bank": "1c33083a-c8e1-4165-8ad8-1b8b78e857f3",
+      "settlement": "33e2202c-6109-4ad0-b1a1-3ea0bc0cff8e",
+      "ledger": "4a8fdcda-3164-4b52-a961-3a44a2f9214c"
+    }
+  }
+]

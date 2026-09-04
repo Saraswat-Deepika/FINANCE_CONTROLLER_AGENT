@@ -127,7 +127,7 @@ flowchart TB
 | Frontend | React (Vite), Recharts |
 | Backend | Node.js, Express, MongoDB |
 | Matching Engine | Python, FastAPI, pandas, rapidfuzz |
-| AI Reasoning | LangGraph, Pydantic, Google Gemini (`gemini-2.0-flash`) |
+| AI Reasoning | LangGraph, Pydantic, Google Gemini (`gemini-3.6-flash`) |
 | Evaluation | Custom accuracy/confusion-matrix engine against labeled ground truth |
 
 ---
@@ -187,6 +187,8 @@ npm install
 # 4. Set up the React frontend
 cd ../client
 npm install
+# Add to client/.env:
+# VITE_API_URL=http://localhost:5000
 ```
 
 ### Running
@@ -229,6 +231,70 @@ This regenerates `bank_statement.csv`, `razorpay_settlements.csv`, `internal_led
 - Human-in-the-loop correction — let a user accept/reject "Needs Review" matches and use that feedback to recalibrate confidence thresholds over time
 - GST/TDS tax-line matching as a fourth reconciliation dimension
 - Multi-tenant support for reconciling across multiple business entities/outlets in one run
+
+---
+
+## Running Tests & Evaluation
+
+To run tests:
+```bash
+cd engine
+pytest test_reconcile.py test_investigation.py test_forecast.py test_review_workflow.py test_audit_workflow.py
+```
+
+To run a standalone evaluation:
+```bash
+cd engine
+python -c "import requests, json; print(requests.post('http://localhost:8000/evaluate', json={'summary':{}}).json())"
+```
+*(Note: Full evaluation happens automatically on the frontend Dashboard via the backend pipeline.)*
+
+---
+
+## Deployment Instructions
+
+### Frontend (React/Vite)
+1. Build the production app: `cd client && npm run build`
+2. Serve the `dist` folder using Nginx, Vercel, or AWS S3.
+3. Ensure the environment variable `VITE_API_URL` points to your production backend URL.
+
+### Backend (Node.js)
+1. Set `PORT`, `MONGODB_URI`, and `PYTHON_ENGINE_URL` in your production environment.
+2. Start the server: `cd server && npm start`
+3. Host on Render, Heroku, AWS EC2, or equivalent.
+
+### Engine (Python/FastAPI)
+1. Set `GEMINI_API_KEY` in the environment.
+2. Start the production server: `cd engine && uvicorn main:app --host 0.0.0.0 --port 8000`
+3. Host on a scalable platform like GCP Cloud Run or AWS ECS.
+
+---
+
+## Methodologies
+
+### Reconciliation Methodology
+1. **Validation & Normalization**: Strips spaces, unifies date formats (YYYY-MM-DD), handles NaN/Null.
+2. **Exact Matching**: Matches UTR / Settlement References directly across sources.
+3. **Fuzzy Matching**: Uses `rapidfuzz` for text similarity (e.g. name variations) and sets tolerances for dates (±3 days) and amounts (±5%).
+4. **Categorization**: Groups are marked as `FULLY_MATCHED`, `FUZZY_MATCHED`, `NEEDS_REVIEW`, or `UNMATCHED`.
+
+### AI Architecture & Investigation
+1. **Evidence Collection**: Gather normalized row data for mismatched records.
+2. **Deterministic Fallback**: If LLM times out or hallucinates (caught by Pydantic schema), a deterministic reason is used.
+3. **Investigation Graph**: LangGraph node batches requests to Gemini (gemini-3.6-flash), asking it to classify the mismatch (e.g. "Missing from bank", "Amount mismatch due to fee").
+
+### Forecast Methodology
+1. **Baseline**: Takes current cash position from ledger/bank total.
+2. **Pending Transactions**: Reconciled groups with un-settled elements (e.g. fuzzy/needs review) are processed to identify pending inflows and outflows.
+3. **Thresholding**: Checks if projected cash balance for the next 7 days drops below the `minimum_safe_cash` threshold (default ₹50,000).
+
+---
+
+## Known Limitations
+
+- **Scalability of AI**: Large datasets (>10,000 exceptions) may hit LLM rate limits unless batched with higher quota.
+- **Mocked Auth**: The current app lacks real authentication/authorization for human reviewers.
+- **File Upload Limitations**: Files are stored temporarily on disk; a production system should stream them to cloud storage (S3/GCS).
 
 ---
 
