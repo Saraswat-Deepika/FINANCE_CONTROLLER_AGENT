@@ -12,7 +12,7 @@ def get_exception_reasons_for_patterns(patterns_dict):
     
     keys = list(patterns_dict.keys())
     total_items = len(keys)
-    batch_size = 50
+    batch_size = 500
     
     batches = [keys[i:i + batch_size] for i in range(0, total_items, batch_size)]
     

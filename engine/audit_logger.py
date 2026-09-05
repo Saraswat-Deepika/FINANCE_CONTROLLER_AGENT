@@ -7,6 +7,15 @@ import requests
 AUDIT_LOG_FILE = "audit_log.jsonl"
 EXPRESS_API_URL = os.environ.get("EXPRESS_SERVER_URL", "http://localhost:5000/api/audit/event")
 
+import concurrent.futures
+_audit_executor = concurrent.futures.ThreadPoolExecutor(max_workers=10)
+
+def _send_log(url, entry):
+    try:
+        requests.post(url, json=entry, timeout=5)
+    except Exception as e:
+        pass # Silently fail to avoid console spam in large loops
+
 def log_audit_event(event_type: str, actor_type: str, details: dict):
     """Log an event to the Express MongoDB audit collection (and optionally local file)."""
     
@@ -26,13 +35,10 @@ def log_audit_event(event_type: str, actor_type: str, details: dict):
         with open(AUDIT_LOG_FILE, "a") as f:
             f.write(json.dumps(log_entry) + "\n")
     except Exception as e:
-        print(f"Failed to write local audit log: {e}")
+        pass
         
-    # Send to Express Server
-    try:
-        requests.post(EXPRESS_API_URL, json=log_entry, timeout=5)
-    except Exception as e:
-        print(f"Failed to send audit log to backend: {e}")
+    # Send to Express Server (Asynchronous)
+    _audit_executor.submit(_send_log, EXPRESS_API_URL, log_entry)
         
     return event_id
 

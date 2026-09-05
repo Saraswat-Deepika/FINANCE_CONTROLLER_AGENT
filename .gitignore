@@ -1,14 +1,39 @@
-# Dependency directories
-node_modules/
-venv/
-__pycache__/
-
-# Environment variables (Inhe kabhi push nahi karna chahiye security ke liye)
+# Environment variables
 .env
+.env.*
+!.env.example
 
-# MacOS folder attributes
-.DS_Store
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
 
-# Build outputs
+# Build
 dist/
 build/
+
+# Python
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+
+# Logs
+*.log
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets / private keys
+*.pem
+*.key
+
+# Temporary files
+*.tmp
+*.temp
