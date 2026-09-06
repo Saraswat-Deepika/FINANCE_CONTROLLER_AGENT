@@ -32,6 +32,17 @@ function App() {
   const [chatInput, setChatInput] = useState('');
   const [isChatLoading, setIsChatLoading] = useState(false);
   const [isActionLoading, setIsActionLoading] = useState(false);
+  const [activeAction, setActiveAction] = useState(null);
+  const [actionInput, setActionInput] = useState('');
+  const [actionCategory, setActionCategory] = useState('');
+  const [overrideSelection, setOverrideSelection] = useState('');
+  const [toastMessage, setToastMessage] = useState(null);
+
+  const showToast = (msg) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(null), 3000);
+  };
+
   
   const suggestedQuestions = [
     "What's our current cash position?",
@@ -87,18 +98,20 @@ function App() {
 
 
   
-  const handleResolutionAction = async (exception, action, reason, notes = null) => {
+  const handleResolutionAction = async (exception, action, reason, notes = null, custom_final_status = null) => {
     if (isActionLoading) return;
     setIsActionLoading(true);
     try {
-        let final_status = 'NEEDS_REVIEW';
-        if (action === 'Accept') final_status = 'HUMAN_CONFIRMED';
-        else if (action === 'Reject') final_status = 'REJECTED';
-        else if (action === 'Valid Difference') final_status = 'VALID_DIFFERENCE';
-        else if (action === 'Escalate') final_status = 'ESCALATED';
-        else if (action === 'Request Info') final_status = 'WAITING_FOR_INFORMATION';
-        else if (action === 'Manual Match') final_status = 'HUMAN_CONFIRMED';
-        else if (action === 'Override') final_status = 'OVERRIDDEN';
+        let final_status = custom_final_status || 'NEEDS_REVIEW';
+        if (!custom_final_status) {
+            if (action === 'Approve' || action === 'Accept') final_status = 'Resolved - Approved';
+            else if (action === 'Reject') final_status = 'Resolved - Rejected';
+            else if (action === 'Valid Difference') final_status = 'Resolved - Explainable Difference';
+            else if (action === 'Escalate') final_status = 'Escalated - Pending Senior Review';
+            else if (action === 'Request Info') final_status = 'Pending - Info Requested';
+            else if (action === 'Manual Match') final_status = 'Resolved - Manual Override';
+            else if (action === 'Override') final_status = 'Resolved - Manual Override';
+        }
         
       const payload = {
         exception_id: exception.group_id,
@@ -114,24 +127,45 @@ function App() {
       };
       await axios.post(`${API_BASE_URL}/api/exceptions/resolve`, payload);
       
-      // Update local state
+      // Update local state and remove from queue
       const newData = { ...data };
-      ['fuzzy_matched', 'needs_review', 'unmatched'].forEach(category => {
-        const list = newData[category];
-        if (list) {
-          const idx = list.findIndex(e => e.group_id === exception.group_id);
-          if (idx !== -1) {
-             if (!list[idx].investigation_state) list[idx].investigation_state = {};
-             list[idx].investigation_state.resolution = payload.final_status;
+      let removed = false;
+      ['fuzzy_matched', 'needs_review'].forEach(category => {
+        if (newData[category]) {
+          const originalLength = newData[category].length;
+          // For status-changing actions (not Add Note), remove from active lists
+          if (action !== 'Add Note') {
+              newData[category] = newData[category].filter(e => e.group_id !== exception.group_id);
+              if (newData[category].length < originalLength) removed = true;
+          } else {
+              const idx = newData[category].findIndex(e => e.group_id === exception.group_id);
+              if (idx !== -1) {
+                  if (!newData[category][idx].investigation_state) newData[category][idx].investigation_state = {};
+                  newData[category][idx].investigation_state.resolution = payload.final_status;
+              }
           }
         }
       });
       setData(newData);
-      if (selectedException && selectedException.group_id === exception.group_id) {
-          handleSelectException({...selectedException, investigation_state: {...selectedException.investigation_state, resolution: payload.final_status}}); loadAuditMetrics();
+      
+      if (action !== 'Add Note') {
+         showToast(`Marked as ${final_status}`);
+         setSelectedException(null);
+         setActiveAction(null);
+         setActionInput('');
+         setActionCategory('');
+         setOverrideSelection('');
+      } else {
+         showToast("Note added successfully");
+         if (selectedException && selectedException.group_id === exception.group_id) {
+             handleSelectException({...selectedException, investigation_state: {...selectedException.investigation_state, resolution: payload.final_status}});
+         }
       }
+      loadAuditMetrics();
     } catch (err) {
       alert("Failed to save action: " + err.message);
+    } finally {
+      setIsActionLoading(false);
     }
   };
 
@@ -504,8 +538,95 @@ function App() {
   };
 
   return (
-    <div className="container">
-      <header className="header">
+    <div className="app-layout">
+      {toastMessage && (
+        <div style={{
+          position: 'fixed', top: '20px', left: '50%', transform: 'translateX(-50%)',
+          background: '#10b981', color: 'white', padding: '12px 24px', borderRadius: '8px',
+          boxShadow: '0 4px 6px rgba(0,0,0,0.1)', zIndex: 9999, fontWeight: 'bold'
+        }}>
+          {toastMessage}
+        </div>
+      )}
+      <aside className="sidebar">
+        <h1 className="sidebar-title">AI Finance Controller</h1>
+        <div className="sidebar-section">
+          <span className="sidebar-label">Dataset</span>
+          <div className="dataset-toggle" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', padding: '0 0.5rem' }}>
+            <button 
+              onClick={() => handleModeSwitch('demo')}
+              style={{
+                background: datasetMode === 'demo' ? '#2563eb' : 'transparent',
+                color: 'white',
+                border: datasetMode === 'demo' ? '1px solid #2563eb' : '1px solid rgba(255,255,255,0.3)',
+                padding: '0.875rem 1rem',
+                fontSize: '0.95rem',
+                fontWeight: '600',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                width: '100%',
+                textAlign: 'center'
+              }}
+              onMouseEnter={(e) => { if(datasetMode !== 'demo') e.currentTarget.style.background = 'rgba(255,255,255,0.1)'; }}
+              onMouseLeave={(e) => { if(datasetMode !== 'demo') e.currentTarget.style.background = 'transparent'; }}
+            >
+              Demo Synthetic Data
+            </button>
+            <button 
+              onClick={() => handleModeSwitch('upload')}
+              style={{
+                background: datasetMode === 'upload' ? '#2563eb' : 'transparent',
+                color: 'white',
+                border: datasetMode === 'upload' ? '1px solid #2563eb' : '1px solid rgba(255,255,255,0.3)',
+                padding: '0.875rem 1rem',
+                fontSize: '0.95rem',
+                fontWeight: '600',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                width: '100%',
+                textAlign: 'center'
+              }}
+              onMouseEnter={(e) => { if(datasetMode !== 'upload') e.currentTarget.style.background = 'rgba(255,255,255,0.1)'; }}
+              onMouseLeave={(e) => { if(datasetMode !== 'upload') e.currentTarget.style.background = 'transparent'; }}
+            >
+              Upload Your Own Data
+            </button>
+          </div>
+        </div>
+        
+        <div className="sidebar-section">
+          <span className="sidebar-label">Operations</span>
+          <select value={currentUserRole} onChange={e => setCurrentUserRole(e.target.value)}>
+            <option value="ADMIN">Role: Admin</option>
+            <option value="REVIEWER">Role: Reviewer</option>
+            <option value="VIEWER">Role: Viewer</option>
+          </select>
+          <button 
+            className="btn-primary" 
+            onClick={runReconciliation} 
+            disabled={loading || (datasetMode === 'upload' && !validationResult)}
+            style={{ marginTop: '0.5rem' }}
+          >
+            {loading ? 'Reconciling Data...' : 'Run Reconciliation'}
+          </button>
+          {data && (
+            <button className="btn-secondary" onClick={downloadCSV}>
+              Download Report
+            </button>
+          )}
+          {data && (
+             <button className="btn-secondary" onClick={clearDataset}>
+               Clear Results
+             </button>
+          )}
+        </div>
+      </aside>
+      
+      <main className="main-content">
+        <div className="container">
+          {/* <header className="header">
         <h1 className="title">Finance Reconciliation Dashboard</h1>
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
           <select value={currentUserRole} onChange={e => setCurrentUserRole(e.target.value)} style={{padding: '0.5rem', borderRadius: '4px'}}>
@@ -531,24 +652,7 @@ function App() {
             {loading ? 'Reconciling Data...' : 'Run Reconciliation'}
           </button>
         </div>
-      </header>
-
-      <div className="dataset-toggle-container" style={{ display: 'flex', justifyContent: 'center', margin: '1rem 0' }}>
-        <div className="dataset-toggle" style={{ display: 'flex', backgroundColor: '#f1f5f9', borderRadius: '8px', overflow: 'hidden', border: '1px solid #e2e8f0' }}>
-          <button 
-            style={{ padding: '0.75rem 1.5rem', border: 'none', background: datasetMode === 'demo' ? '#2563eb' : 'transparent', color: datasetMode === 'demo' ? 'white' : '#475569', fontWeight: 'bold', cursor: 'pointer' }}
-            onClick={() => handleModeSwitch('demo')}
-          >
-            Demo Synthetic Data
-          </button>
-          <button 
-            style={{ padding: '0.75rem 1.5rem', border: 'none', background: datasetMode === 'upload' ? '#2563eb' : 'transparent', color: datasetMode === 'upload' ? 'white' : '#475569', fontWeight: 'bold', cursor: 'pointer' }}
-            onClick={() => handleModeSwitch('upload')}
-          >
-            Upload Your Own Data
-          </button>
-        </div>
-      </div>
+      </header> */}
 
             {datasetMode === 'upload' && !data && (
         <>
@@ -738,22 +842,25 @@ function App() {
 
       {data && !loading && (
         <>
-          {/* Executive Summary */}
-          <div className="executive-summary" style={{ padding: '1.5rem', background: '#f8fafc', borderRadius: '8px', borderLeft: '4px solid #2563eb', marginBottom: '2rem' }}>
-            <h3 style={{ marginTop: 0, marginBottom: '1rem', color: '#1e293b' }}>Finance Control Summary</h3>
-            <p style={{ fontSize: '1.1rem', color: '#334155', lineHeight: '1.6', margin: 0 }}>
-               Reconciliation completed for <strong>{data.summary?.total_groups || 0}</strong> groups. 
-               <strong> {data.summary?.fully_matched || 0}</strong> groups matched automatically. 
-               <strong> {data.summary?.needs_review || 0 + data.summary?.fuzzy_matched || 0}</strong> require human review, and 
-               <strong> {data.summary?.unmatched || 0}</strong> remain completely unmatched. 
-               {forecastData && forecastData.data && (
-                  <> Current cash is <strong>₹{forecastData.data.current_cash_position.toLocaleString('en-IN', {minimumFractionDigits: 2})}</strong>, with a 7-day forecast ending cash of <strong>₹{forecastData.data.forecast_days[forecastData.data.forecast_days.length - 1].closing_balance.toLocaleString('en-IN', {minimumFractionDigits: 2})}</strong>.</>
-               )}
-            </p>
-          </div>
+          {/* Top Row: Cash Position & Sparkline */}
+          {forecastData && forecastData.data && (
+            <div className="top-dashboard">
+              <div className="cash-position">
+                <h2>Current Cash Position</h2>
+                <div className="cash-value mono">₹{forecastData.data.current_cash_position.toLocaleString('en-IN', {minimumFractionDigits: 2})}</div>
+              </div>
+              <div className="sparkline-container">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={forecastData.data.forecast_days}>
+                    <Line type="monotone" dataKey="closing_balance" stroke="#6366F1" strokeWidth={3} dot={false} />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          )}
 
           {/* Top-Level KPIs */}
-          <div className="dashboard-grid">
+          <div className="status-cards">
                {(() => {
                  const allExceptions = [...(data.fuzzy_matched||[]), ...(data.needs_review||[]), ...(data.unmatched||[])];
                  const totalGroups = data.summary?.total_groups || 0;
@@ -775,28 +882,38 @@ function App() {
                  return (
                    <>
                     {/* RECONCILIATION KPIs */}
-                    <div className="card" style={{gridColumn: '1 / -1', background: 'transparent', border: 'none', boxShadow: 'none', padding: '0 0 1rem 0'}}>
+
+                    <div className="status-card fully-matched">
+                      <h3 className="status-card-title">Fully Matched</h3>
+                      <p className="status-card-value mono">{matchedGroups}</p>
+                    </div>
+                    <div className="status-card fuzzy-matched">
+                      <h3 className="status-card-title">Fuzzy Matched</h3>
+                      <p className="status-card-value mono">{data.summary?.fuzzy_matched || 0}</p>
+                    </div>
+                    <div className="status-card needs-review">
+                      <h3 className="status-card-title">Needs Review</h3>
+                      <p className="status-card-value mono">{data.summary?.needs_review || 0}</p>
+                    </div>
+                    <div className="status-card unmatched">
+                      <h3 className="status-card-title">Unmatched</h3>
+                      <p className="status-card-value mono">{data.summary?.unmatched || 0}</p>
+                    </div>
+                    
+                    <div className="card" style={{gridColumn: '1 / -1', background: 'transparent', border: 'none', boxShadow: 'none', padding: '0 0 1rem 0', marginTop: '1rem', borderTop: '1px solid #e2e8f0'}}>
                         <h2 style={{margin: 0, color: '#0f172a'}}>Reconciliation Operations</h2>
                     </div>
                     <div className="card" title="Total Groups Processed">
                       <h3 className="card-title">Records Processed</h3>
-                      <p className="card-value value-neutral">{totalGroups}</p>
+                      <p className="card-value value-neutral mono">{totalGroups}</p>
                     </div>
                     <div className="card" title="Matched groups / Total groups">
                       <h3 className="card-title">Match Rate</h3>
-                      <p className="card-value value-success">{matchRate}%</p>
-                    </div>
-                    <div className="card" title="Fully Matched + AI Resolved / Total Groups">
-                      <h3 className="card-title">Auto-Resolution Rate</h3>
-                      <p className="card-value value-primary">{autoResolutionRate}%</p>
-                    </div>
-                    <div className="card" title="Total exceptions / Total groups">
-                      <h3 className="card-title">Exception Rate</h3>
-                      <p className="card-value value-warning">{exceptionRate}%</p>
+                      <p className="card-value value-success mono">{matchRate}%</p>
                     </div>
                     <div className="card" title="Cases awaiting human review">
                       <h3 className="card-title">Unresolved Cases</h3>
-                      <p className="card-value value-danger">{pending}</p>
+                      <p className="card-value value-danger mono">{pending}</p>
                     </div>
 
                     {/* AI PERFORMANCE KPIs */}
@@ -1158,8 +1275,8 @@ function App() {
                             setSelectedExceptions(newSet);
                         }} disabled={exp.confidence < 90 || exp.resolution === 'HUMAN_CONFIRMED'} />
                       </td>}
-                      <td style={{ fontSize: '0.8rem', fontFamily: 'monospace' }}>{exp.id.substring(0, 8)}...</td>
-                      <td style={{ fontSize: '0.8rem', fontFamily: 'monospace' }}>{exp.raw?.investigation_state?.transaction_id || 'N/A'}</td>
+                      <td className="mono" style={{ fontSize: '0.85rem' }}>{exp.id.substring(0, 8)}...</td>
+                      <td className="mono" style={{ fontSize: '0.85rem' }}>{exp.raw?.investigation_state?.transaction_id || 'N/A'}</td>
                       <td>
                         <span className={`badge ${exp.priority === 'CRITICAL' ? 'badge-danger' : (exp.priority === 'HIGH' ? 'badge-warning' : (exp.priority === 'MEDIUM' ? 'badge-primary' : ''))}`}>
                           {exp.priority}
@@ -1170,8 +1287,8 @@ function App() {
                           {exp.type}
                         </span>
                       </td>
-                      <td>{exp.date}</td>
-                      <td>₹{exp.amount?.toLocaleString('en-IN', {minimumFractionDigits: 2})}</td>
+                      <td className="mono">{exp.date}</td>
+                      <td className="mono">₹{exp.amount?.toLocaleString('en-IN', {minimumFractionDigits: 2})}</td>
                       <td><span className={`badge ${['AI_RESOLVED', 'AUTO_RESOLVED', 'HUMAN_CONFIRMED'].includes(exp.resolution) ? 'badge-success' : (['REJECTED'].includes(exp.resolution) ? 'badge-danger' : 'badge-warning')}`}>{exp.resolution}</span></td>
                       <td>
                         {exp.confidence !== undefined && (
@@ -1199,12 +1316,13 @@ function App() {
           </div>
 
           {selectedException && (
-            <div className="modal-backdrop" onClick={closeModal}>
-              <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{maxWidth: '800px', maxHeight: '90vh', overflowY: 'auto'}}>
-                <div className="modal-header">
+            <div className="side-panel-backdrop" onClick={closeModal}>
+              <div className="side-panel" onClick={(e) => e.stopPropagation()}>
+                <div className="side-panel-header">
                   <h2>Exception Details</h2>
-                  <button className="close-btn" onClick={closeModal}>&times;</button>
+                  <button className="panel-close" onClick={closeModal}>&times;</button>
                 </div>
+                <div className="side-panel-content">
                 
                 {/* ---------------- EXCEPTION ---------------- */}
                 <div style={{marginBottom: '1.5rem', padding: '1rem', background: '#f8fafc', borderRadius: '8px'}}>
@@ -1246,8 +1364,8 @@ function App() {
 
                 {/* ---------------- INVESTIGATION ---------------- */}
                 {selectedException.investigation_state?.investigation_steps && (
-                    <div style={{marginBottom: '1.5rem'}}>
-                      <h3 style={{ borderBottom: '1px solid #e2e8f0', paddingBottom: '0.5rem' }}>AI Investigation Steps</h3>
+                    <div className="ai-generated-content">
+                      <h3>AI Investigation Steps</h3>
                       <ul style={{listStyleType: 'none', paddingLeft: 0}}>
                         {selectedException.investigation_state.investigation_steps.map((step, idx) => (
                            <li key={idx} style={{marginBottom: '0.5rem'}}><span style={{color: '#10b981', marginRight: '0.5rem'}}>✓</span>{step}</li>
@@ -1270,16 +1388,16 @@ function App() {
 
                 {/* ---------------- AI CONCLUSION ---------------- */}
                 {selectedException.investigation_state?.root_cause && (
-                    <div style={{marginBottom: '1.5rem', padding: '1rem', background: '#eff6ff', borderLeft: '4px solid #3b82f6'}}>
-                      <h3 style={{marginTop: 0}}>AI Conclusion</h3>
+                    <div className="ai-generated-content">
+                      <h3>AI Conclusion</h3>
                       <p>{selectedException.investigation_state.root_cause}</p>
                     </div>
                 )}
 
                 {/* ---------------- RECOMMENDATION ---------------- */}
                 {selectedException.investigation_state?.recommendation && (
-                    <div style={{marginBottom: '1.5rem', padding: '1rem', background: '#fff7ed', borderLeft: '4px solid #f97316'}}>
-                      <h3 style={{marginTop: 0}}>Recommendation</h3>
+                    <div className="ai-generated-content">
+                      <h3>AI Recommendation</h3>
                       <p>{selectedException.investigation_state.recommendation}</p>
                     </div>
                 )}
@@ -1346,59 +1464,144 @@ function App() {
                       </ul>
                     </div>
                 )}
-                {/* ---------------- ACTIONS ---------------- */}
+                                {/* ---------------- ACTIONS ---------------- */}
                 {currentUserRole !== 'VIEWER' && (
-                    <div style={{display: 'flex', gap: '0.5rem', justifyContent: 'flex-end', marginTop: '1rem', flexWrap: 'wrap', padding: '1rem', background: '#f1f5f9', borderRadius: '8px'}}>
-                        <button className="btn-primary" onClick={() => { 
-                            if(window.confirm(`APPROVE AI RESOLUTION?
+                    <div style={{ marginTop: '1rem', padding: '1rem', background: '#f8fafc', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                        
+                        {/* Inline Form Rendering based on activeAction */}
+                        {activeAction && (
+                            <div style={{ marginBottom: '1rem', padding: '1rem', background: 'white', borderRadius: '6px', border: '1px solid #cbd5e1' }}>
+                                <h4 style={{ marginTop: 0, marginBottom: '0.75rem', color: '#1e293b' }}>{activeAction} Action</h4>
+                                
+                                {activeAction === 'Override' && (
+                                    <div style={{ marginBottom: '0.75rem' }}>
+                                        <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.25rem' }}>Select Unmatched Transaction</label>
+                                        <select 
+                                            value={overrideSelection} 
+                                            onChange={e => setOverrideSelection(e.target.value)}
+                                            style={{ width: '100%', padding: '0.5rem', borderRadius: '4px', border: '1px solid #cbd5e1' }}
+                                        >
+                                            <option value="">-- Select Transaction --</option>
+                                            {data?.unmatched?.map(u => (
+                                                <option key={u.group_id} value={u.group_id}>{u.raw?.id || u.group_id} - ₹{u.raw?.amount}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                )}
+                                
+                                {activeAction === 'Valid Difference' && (
+                                    <div style={{ marginBottom: '0.75rem' }}>
+                                        <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.25rem' }}>Category</label>
+                                        <select 
+                                            value={actionCategory} 
+                                            onChange={e => setActionCategory(e.target.value)}
+                                            style={{ width: '100%', padding: '0.5rem', borderRadius: '4px', border: '1px solid #cbd5e1' }}
+                                        >
+                                            <option value="">-- Select Category --</option>
+                                            <option value="Fee">Gateway Fee</option>
+                                            <option value="Refund">Refund</option>
+                                            <option value="Tax">Tax</option>
+                                            <option value="Timing Delay">Timing Delay</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                )}
+                                
+                                {activeAction === 'Escalate' && (
+                                    <div style={{ marginBottom: '0.75rem' }}>
+                                        <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.25rem' }}>Urgency Level</label>
+                                        <select 
+                                            value={actionCategory} 
+                                            onChange={e => setActionCategory(e.target.value)}
+                                            style={{ width: '100%', padding: '0.5rem', borderRadius: '4px', border: '1px solid #cbd5e1' }}
+                                        >
+                                            <option value="Normal">Normal</option>
+                                            <option value="High">High</option>
+                                        </select>
+                                    </div>
+                                )}
 
-Exception: ${selectedException.group_id}
-AI Conclusion: ${selectedException.investigation_state?.root_cause || 'N/A'}
-Confidence: ${Math.round(selectedException.investigation_state?.confidence * 100)}%
+                                <div style={{ marginBottom: '0.75rem' }}>
+                                    <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.25rem' }}>
+                                        {activeAction === 'Add Note' ? 'Note Details' : 'Reason / Justification'}
+                                    </label>
+                                    <textarea 
+                                        value={actionInput} 
+                                        onChange={e => setActionInput(e.target.value)}
+                                        placeholder="Enter details here..."
+                                        style={{ width: '100%', padding: '0.5rem', borderRadius: '4px', border: '1px solid #cbd5e1', minHeight: '60px' }}
+                                    />
+                                </div>
+                                
+                                <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
+                                    <button 
+                                        className="btn-secondary" 
+                                        onClick={() => { setActiveAction(null); setActionInput(''); setActionCategory(''); setOverrideSelection(''); }}
+                                        disabled={isActionLoading}
+                                    >Cancel</button>
+                                    <button 
+                                        className="btn-primary" 
+                                        disabled={isActionLoading || (!actionInput.trim() && activeAction !== 'Valid Difference')} // Require input
+                                        onClick={() => {
+                                            const reasonText = (actionCategory ? `[${actionCategory}] ` : '') + actionInput;
+                                            
+                                            if (activeAction === 'Override' && !overrideSelection) {
+                                                alert("Please select a transaction to match with.");
+                                                return;
+                                            }
+                                            
+                                            if (activeAction === 'Escalate') {
+                                                console.log(`[ESCALATION NOTIFICATION] Sending email/alert for ${selectedException.group_id} - Urgency: ${actionCategory || 'Normal'}`);
+                                            }
 
-Are you sure you want to approve this decision?`)) {
-                                handleResolutionAction(selectedException, 'Accept', 'Approved AI Decision'); 
-                            }
-                        }}>Approve</button>
-                        
-                        <button className="btn-secondary" style={{borderColor: '#ef4444', color: '#ef4444'}} onClick={() => {
-                            const r = window.prompt(`REJECT AI RESOLUTION
-Please provide a reason for rejecting (e.g., Incorrect match, Insufficient evidence):`);
-                            if(r) handleResolutionAction(selectedException, 'Reject', r, r);
-                        }}>Reject</button>
-                        
-                        <button className="btn-secondary" onClick={() => {
-                            const r = window.prompt(`OVERRIDE DECISION
-Please provide the new manual decision and reason:`);
-                            if(r) handleResolutionAction(selectedException, 'Override', r, r);
-                        }}>Override</button>
-                        
-                        <button className="btn-secondary" onClick={() => {
-                            const r = window.prompt(`MARK VALID DIFFERENCE
-Please provide reason (e.g., Expected gateway fee, Settlement delay):`);
-                            if(r) handleResolutionAction(selectedException, 'Valid Difference', r, r);
-                        }}>Valid Difference</button>
-                        
-                        <button className="btn-secondary" onClick={() => {
-                            const r = window.prompt(`ESCALATE CASE
-Please provide escalation reason and priority:`);
-                            if(r) handleResolutionAction(selectedException, 'Escalate', r, r);
-                        }}>Escalate</button>
-                        
-                        <button className="btn-secondary" onClick={() => {
-                            const r = window.prompt(`REQUEST INFORMATION
-What information is required?`);
-                            if(r) handleResolutionAction(selectedException, 'Request Info', r, r);
-                        }}>Request Info</button>
-                        
-                        <button className="btn-secondary" onClick={() => {
-                            const r = window.prompt(`ADD NOTE
-Enter your note for this case:`);
-                            if(r) handleResolutionAction(selectedException, selectedException.investigation_state?.resolution || 'UNKNOWN', 'Added Note', r);
-                        }}>+ Add Note</button>
+                                            if (activeAction === 'Add Note') {
+                                                handleResolutionAction(selectedException, selectedException.investigation_state?.resolution || 'UNKNOWN', 'Added Note', actionInput);
+                                            } else if (activeAction === 'Override') {
+                                                handleResolutionAction(selectedException, activeAction, `Matched manually to ${overrideSelection} - Reason: ${reasonText}`);
+                                            } else {
+                                                handleResolutionAction(selectedException, activeAction, reasonText, activeAction === 'Escalate' ? reasonText : null);
+                                            }
+                                        }}
+                                    >Confirm {activeAction}</button>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Action Buttons */}
+                        <div style={{display: 'flex', gap: '0.5rem', flexWrap: 'wrap', opacity: activeAction ? 0.5 : 1, pointerEvents: activeAction ? 'none' : 'auto'}}>
+                            <button className="btn-primary" onClick={() => { 
+                                handleResolutionAction(selectedException, 'Approve', 'Approved AI Decision'); 
+                            }}>Approve</button>
+                            
+                            <button className="btn-secondary" style={{borderColor: '#ef4444', color: '#ef4444'}} onClick={() => {
+                                setActiveAction('Reject');
+                            }}>Reject</button>
+                            
+                            <button className="btn-secondary" onClick={() => {
+                                setActiveAction('Override');
+                            }}>Override</button>
+                            
+                            <button className="btn-secondary" onClick={() => {
+                                setActiveAction('Valid Difference');
+                            }}>Valid Difference</button>
+                            
+                            <button className="btn-secondary" onClick={() => {
+                                setActionCategory('Normal');
+                                setActiveAction('Escalate');
+                            }}>Escalate</button>
+                            
+                            <button className="btn-secondary" onClick={() => {
+                                setActiveAction('Request Info');
+                            }}>Request Info</button>
+                            
+                            <button className="btn-secondary" onClick={() => {
+                                setActiveAction('Add Note');
+                            }}>+ Add Note</button>
+                        </div>
                     </div>
                 )}
 
+                </div>
               </div>
             </div>
           )}
@@ -1459,6 +1662,8 @@ Enter your note for this case:`);
           </div>
         </>
       )}
+    </div>
+      </main>
     </div>
   );
 }
